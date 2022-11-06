@@ -1,0 +1,28 @@
+
+  body {
+    
+  }
+  
+  body .hidden {
+    display: none;
+  }
+  
+  table,
+  tr,
+  thead {
+    border: 1px solid;
+  }
+  
+  #error,
+  #no-results {
+    display: none;
+  }
+  
+  .visible {
+    display: block !important;
+  }
+  
+  .odd-row {
+    background-color: #f2f2f2;
+  }
+  

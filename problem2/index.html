@@ -1,0 +1,33 @@
+<html>
+  <body>
+    <div id="paragraph"></div>
+    <script>
+      async function getApi() {
+        const response = await fetch(
+          "http://jsonplaceholder.typicode.com/todos/"
+        );
+        const parsedResponse = await response.json();
+
+        const filteredPosts = parsedResponse.filter(
+          (post) => post.title.length > 6
+        );
+
+        console.log(filteredPosts);
+
+        const recurrencies = {};
+
+        parsedResponse.forEach((post) => {
+          post.title.split(" ").forEach((word) => {
+            if (!recurrencies[word]) recurrencies[word] = 0;
+            recurrencies[word]++;
+          });
+        });
+
+        console.log(recurrencies);
+
+      }
+
+      getApi();
+    </script>
+  </body>
+</html>

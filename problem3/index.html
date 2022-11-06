@@ -1,0 +1,95 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+
+  <body>
+    <p>
+      mojombo <br />
+      defunkt <br />
+      skooter500 <br />
+    </p>
+
+    <div class="user-commands">
+      <input type="text" id="searchBar" placeholder="Search GitHub username" />
+      <button type="button" onclick="searchForUser()">Search</button>
+    </div>
+
+    <div class="user-container">
+      <div class="user-profile">
+        <div class="user-profile-title">User Profile</div>
+        <div class="user-image">
+          <img
+            src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+            width="100px"
+          />
+        </div>
+        <div class="user-name">Name: <span>-</span></div>
+        <div class="user-username">Username: <span>-</span></div>
+        <div class="user-email">Email: <span>-</span></div>
+        <div class="user-location">Location: <span>-</span></div>
+        <div class="user-number-of-gists">Number of Gists: <span>-</span></div>
+      </div>
+      <div class="user-repositories">
+        <div class="user-repositories-title">User Repos</div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      async function searchForUser() {
+        const username = document.getElementById("searchBar").value;
+        await getGithubUser(username);
+      }
+
+      async function getGithubUser(loginName) {
+        let response = await fetch(`https://api.github.com/users/${loginName}`);
+        const usersParsed = await response.json();
+
+        populateUserInformationSidebar(usersParsed);
+        await getGithubUserRepositories(usersParsed);
+      }
+
+      async function getGithubUserRepositories(user) {
+        let response = await fetch(user.repos_url);
+        const repositoriesParsed = await response.json();
+
+        populateUserRepositoriesSidebar(repositoriesParsed);
+      }
+
+      function populateUserInformationSidebar(user) {
+        const imageElement =
+          document.getElementsByClassName("user-image")[0].children[0];
+        const nameElement =
+          document.getElementsByClassName("user-name")[0].children[0];
+        const usernameElement =
+          document.getElementsByClassName("user-username")[0].children[0];
+        const emailElement =
+          document.getElementsByClassName("user-email")[0].children[0];
+        const locationElement =
+          document.getElementsByClassName("user-location")[0].children[0];
+        const numberOfGistsElement = document.getElementsByClassName(
+          "user-number-of-gists"
+        )[0].children[0];
+
+        imageElement.src =
+          user.avatar_url ||
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png";
+        nameElement.innerText = user.name || "-";
+        usernameElement.innerText = user.login || "-";
+        emailElement.innerText = user.email || "-";
+        locationElement.innerText = user.location || "-";
+        numberOfGistsElement.innerText = user.public_gists || "0";
+      }
+
+      function populateUserRepositoriesSidebar(repositories) {
+        const repositoriesContainerElement =
+          document.getElementsByClassName("user-repositories")[0];
+
+        if (repositories.length > 5)
+          repositoriesContainerElement.classList.add("scrollable");
+      }
+
+     
+    </script>
+  </body>
+</html>

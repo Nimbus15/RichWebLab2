@@ -1,0 +1,53 @@
+
+  
+  body {
+
+  }
+  
+  body input {
+    width: 85%;
+  }
+  
+  body .user-container {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+  }
+  
+  body .user-container .user-profile,
+  body .user-container .user-repositories {
+    display: flex;
+    width: 50%;
+    height: 500px;
+    flex-grow: 1;
+    flex-basis: 0;
+    flex-direction: column;
+    padding: 16px;
+    overflow: hidden;
+  
+    border: 1px solid;
+  }
+  
+  body .user-container .user-profile .user-image,
+  body .user-container .user-profile .user-name,
+  body .user-container .user-profile .user-username,
+  body .user-container .user-profile .user-email,
+  body .user-container .user-profile .user-location,
+  body .user-container .user-profile .user-number-of-gists {
+    padding: 8px;
+    border: 1px solid;
+  }
+  
+  body .user-container .user-repositories .user-repository {
+    height: 100px;
+    border: 1px solid;
+  }
+  
+  body .hidden {
+    display: none;
+  }
+  
+  body .scrollable {
+    overflow: auto !important;
+  }
+  
